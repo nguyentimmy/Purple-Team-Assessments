@@ -1,6 +1,4 @@
-## Activity Solution File: Alert and Attacking Target 1
-
-### Instructions
+# Alert and Attacking Target 1
 
 #### Configuring Alerts
 
