@@ -1,10 +1,4 @@
-## Day 3 Activity File: Reporting
-
-Congratulations! This week, you've worn two hats, playing the roles of attacker and defender. Don't underestimate the magnitude of this achievement: learning enough to infiltrate a machine and analyze data collected during an attack is a milestone that takes many professionals a long time to achieve.
-
-Today, you'll take a break from flexing your technical skills and focus on communicating what you've learned during this project. In a real engagement, your client pays you not to break into their network, but to teach them how to protect it. This is why communication skills are vital in the cybersecurity field.
-
-Therefore, you will summarize your work in a presentation containing the following sections:
+## Part 3 Reporting
 
 - **Network Topology**: What are the addresses and relationships of the machines involved?  
 
