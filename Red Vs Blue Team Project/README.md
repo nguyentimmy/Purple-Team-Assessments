@@ -449,8 +449,3 @@ To complete the next part of the project, you should take screen shots that repr
     - **POST request corresponding to upload of `shell.php`**
       - File uploads should require authentication.
       - In addition, the server should implement an upload filter and forbid users from uploading files that may contain executable code.
-
-## 🎤 Presentation Deliverables
-
-A sample slideshow is attached:
-- [Report: Red vs. Blue Project] https://docs.google.com/presentation/d/1d07OCqkbAXL5kwCwVJrqLPtIgOWXA5t3EZfwI98rdDE/edit#slide=id.g8798eb4c44_0_0)
