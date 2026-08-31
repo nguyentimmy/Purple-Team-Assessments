@@ -16,7 +16,7 @@ In order to find the IP address of the machine, you will need to use Nmap to sca
 
 - Open the terminal and run: `nmap 192.168.1.0/24`
 
-   ![Nmap scan showing port 80 open on 192.168.1.105](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%201/Images/1_nmap.png)
+   ![Nmap scan showing port 80 open on 192.168.1.105](Step-By-Step-Guide/Part%201/Images/1_nmap.png)
 
 From the Nmap scan we can see that port `80` is open. Open a web browser and type the IP address of the machine into the address bar.
 
