@@ -1,4 +1,4 @@
-# 🚩 Security Operations CTF Project
+# 🚩 Security Operations CTF Project Walkthrough
 
 > A two-part purple-team CTF that walks both sides of an incident. **Part 1** sets up detection with Kibana Watcher alerts, then runs a Red Team attack chain against a vulnerable WordPress server (nmap → WordPress enumeration → SSH → MySQL dump → john → privilege escalation) and captures four flags. **Part 2** switches to Wireshark for packet-level forensics on two separate infection scenarios.
 
