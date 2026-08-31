@@ -17,7 +17,7 @@ Complete the following to configure alerts in Kibana:
 
 2. Click on **Management** > **License Management** and enable the Kibana Premium Free Trial.
 
- ![Enabling the Kibana Premium free trial from License Management](Part%201/Images/Free-Trial.png)
+ ![Enabling the Kibana Premium free trial from License Management](Images/Free-Trial.png)
 
 3. Click **Management** > **Watcher** > **Create Alert** > **Create Threshold Alert**
 
