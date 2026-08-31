@@ -21,7 +21,7 @@ Complete the following to configure alerts in Kibana:
 
 3. Click **Management** > **Watcher** > **Create Alert** > **Create Threshold Alert**
 
- ![Creating a threshold alert in Kibana Watcher](Part%201/Images/Create-watches.png)
+ ![Creating a threshold alert in Kibana Watcher](Step-by-Step-Guide/Images/Create-watches.png)
 
 4. Implement three of the alerts you designed at the end of Project 2.
 
