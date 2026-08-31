@@ -22,7 +22,7 @@ From the Nmap scan we can see that port `80` is open. Open a web browser and typ
 
 - Open a web browser and navigate to `192.168.1.105` and press `enter`.
 
-   ![Web browser showing the discovered site](Red%20Vs%20Blue%20Team%20Project/Step-By-Step-Guide/Part%201/Images/2_web_discovery.png)
+   ![Web browser showing the discovered site](Step-By-Step-Guide/Part%201/Images/2_web_discovery.png)
 
 ## 📂 Step 2 — Locate the Hidden Directory
 
