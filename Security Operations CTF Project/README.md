@@ -17,11 +17,11 @@ Complete the following to configure alerts in Kibana:
 
 2. Click on **Management** > **License Management** and enable the Kibana Premium Free Trial.
 
- ![Enabling the Kibana Premium free trial from License Management](Step-by-Step-Guide/Images/Free-Trial.png)
+ ![Enabling the Kibana Premium free trial from License Management](Step-by-Step-Guide/Part%201/Images/Free-Trial.png)
 
 3. Click **Management** > **Watcher** > **Create Alert** > **Create Threshold Alert**
 
- ![Creating a threshold alert in Kibana Watcher](Step-by-Step-Guide/Images/Create-watches.png)
+ ![Creating a threshold alert in Kibana Watcher](Step-by-Step-Guide/Part%201/Images/Create-watches.png)
 
 4. Implement three of the alerts you designed at the end of Project 2.
 
@@ -32,7 +32,7 @@ You are free to configure any alerts you'd like, but we recommend starting with 
   ```kql
   WHEN count() GROUPED OVER top 5 'http.response.status_code' IS ABOVE 400 FOR THE LAST 5 minutes
   ```
-  ![Excessive HTTP Errors alert configuration](Part%201/Images/watch1.png)
+  ![Excessive HTTP Errors alert configuration](Step-by-Step-Guide/Part%201/Images/watch1.png)
   
 - **HTTP Request Size Monitor**
 
@@ -40,7 +40,7 @@ You are free to configure any alerts you'd like, but we recommend starting with 
   WHEN sum() of http.request.bytes OVER all documents IS ABOVE 3500 FOR THE LAST 1 minute
   ```
 
-  ![HTTP Request Size Monitor alert configuration](Part%201/Images/Watch2.png)
+  ![HTTP Request Size Monitor alert configuration](Step-by-Step-Guide/Part%201/Images/Watch2.png)
   
 - **CPU Usage Monitor**
 
@@ -48,11 +48,11 @@ You are free to configure any alerts you'd like, but we recommend starting with 
   WHEN max() OF system.process.cpu.total.pct OVER all documents IS ABOVE 0.5 FOR THE LAST 5 minutes
   ```
 
-  ![CPU Usage Monitor alert configuration](Part%201/Images/Watch3.png)
+  ![CPU Usage Monitor alert configuration](Step-by-Step-Guide/Part%201/Images/Watch3.png)
 
 Your alerts should look similar to the following:
 
- ![All three configured Watcher alerts](Part%201/Images/Finished-alerts.png)
+ ![All three configured Watcher alerts](Step-by-Step-Guide/Part%201/Images/Finished-alerts.png)
 
 
 **Note**: There are a few ways we can view these log messages and their associated data.
@@ -61,30 +61,30 @@ Your alerts should look similar to the following:
 
 * As you attack Target 1, keep the watcher page open to view your alerts fire in real time.
 
-  ![Alert firing in real time from the Watcher screen](Part%201/Images/Alert.png)
+  ![Alert firing in real time from the Watcher screen](Step-by-Step-Guide/Part%201/Images/Alert.png)
 
 - To view network traffic associated with these messages, we need to create a new 'Index Pattern':
 
 - Click on **Management > Index Patterns** and click on the button for `Create Index Pattern`.
 
-  ![Kibana Index Patterns management screen](Part%201/Images/IndexPatterns.png)
+  ![Kibana Index Patterns management screen](Step-by-Step-Guide/Part%201/Images/IndexPatterns.png)
 
-  ![Create Index Pattern button in Kibana](Part%201/Images/CreateIndex.png)
+  ![Create Index Pattern button in Kibana](Step-by-Step-Guide/Part%201/Images/CreateIndex.png)
 
 - Make sure to turn on the toggle button labeled 'Include System Indices' on the top right corner.
   
-  ![Toggling on the Include System Indices option](Part%201/Images/includeIndices.png)
+  ![Toggling on the Include System Indices option](Step-by-Step-Guide/Part%201/Images/includeIndices.png)
 
 - Create the pattern `.watcher-history-*`
-  ![Defining the .watcher-history-* index pattern](Part%201/Images/defineWatcherPattern.png)
+  ![Defining the .watcher-history-* index pattern](Step-by-Step-Guide/Part%201/Images/defineWatcherPattern.png)
 
 - After you have this new index pattern, you can search through it using the 'Discovery' page.
-  ![Kibana Discover page for the Watcher index](Part%201/Images/discovery.png)
+  ![Kibana Discover page for the Watcher index](Step-by-Step-Guide/Part%201/Images/discovery.png)
 
 - Enter `result.condition.met` in as search filter and you can see all the traffic from your alerts.
 
-  ![Filtering on result.condition.met to surface fired alerts](Part%201/Images/discovery-filter.png)
-  ![Alert traffic details in the Discover view](Part%201/Images/alert-traffic.png)
+  ![Filtering on result.condition.met to surface fired alerts](Step-by-Step-Guide/Part%201/Images/discovery-filter.png)
+  ![Alert traffic details in the Discover view](Step-by-Step-Guide/Part%201/Images/alert-traffic.png)
 
 ## ⚔️ Attacking Target 1
 
@@ -246,7 +246,7 @@ Complete the following high-level steps:
     mysql> select * from wp_users;
      ```
 
-   ![WordPress wp_users table showing user password hashes](Part%201/Images/mysqldump.png)
+   ![WordPress wp_users table showing user password hashes](Step-by-Step-Guide/Part%201/Images/mysqldump.png)
     
     ```sql
     -- Find flag3.txt in the blog
@@ -334,26 +334,26 @@ You must inspect your traffic capture to answer the following questions:
 2. What is the IP address of the Domain Controller (DC) of the AD network?
     - Solution: `10.6.12.12`
 
-![Wireshark DNS query resolving frank-n-ted.com to 10.6.12.12](Part%202/images/part1-1.png)
+![Wireshark DNS query resolving frank-n-ted.com to 10.6.12.12](Step-by-Step-Guide/Part%202/images/part1-1.png)
 
   
 3. What is the name of the malware downloaded to the `10.6.12.203` machine?
     - Solution: `june11.dll`
 
-![Wireshark HTTP request for june11.dll on 10.6.12.203](Part%202/images/part1-2.png)
-![Wireshark exporting the june11.dll object](Part%202/images/part1-3.png)
-![Extracted june11.dll saved from the capture](Part%202/images/part1-4.png)
+![Wireshark HTTP request for june11.dll on 10.6.12.203](Step-by-Step-Guide/Part%202/images/part1-2.png)
+![Wireshark exporting the june11.dll object](Step-by-Step-Guide/Part%202/images/part1-3.png)
+![Extracted june11.dll saved from the capture](Step-by-Step-Guide/Part%202/images/part1-4.png)
 
 
 4. Upload the file to [VirusTotal.com](https://www.virustotal.com/gui/). 
 
-![Uploading june11.dll to VirusTotal for analysis](Part%202/images/part1-5.png)
+![Uploading june11.dll to VirusTotal for analysis](Step-by-Step-Guide/Part%202/images/part1-5.png)
 
 5. What kind of malware is this classified as?
 
     - Trojan
 
-![VirusTotal classifying june11.dll as a Trojan](Part%202/images/part1-6.png)
+![VirusTotal classifying june11.dll as a Trojan](Step-by-Step-Guide/Part%202/images/part1-6.png)
 
 ## 🖥️ Vulnerable Windows Machines
 
@@ -369,19 +369,23 @@ Inspect your traffic to answer the following questions:
     - IP address: `172.16.4.205`
     - MAC address: `00:59:07:b0:63:a4`
 
-![Wireshark showing ROTTERDAM-PC host details — IP and MAC](Part%202/images/part2-1.png)
+![Wireshark showing ROTTERDAM-PC host details — IP and MAC](Step-by-Step-Guide/Part%202/images/part2-1.png)
 
 2. What is the username of the Windows user whose computer is infected?
     - Solution: `mattijs.dervies`
 
-![Kerberos traffic revealing the username mattijs.dervies](Part%202/images/part2-2.png)
+![Kerberos traffic revealing the username mattijs.dervies](Step-by-Step-Guide/Part%202/images/part2-2.png)
 
 3. What is the IP address used in the actual infection traffic?
     - Solution: `185.243.115.84` 
 
-![Infection traffic to external IP 185.243.115.84](Part%202/images/part2-3.png)
+![Infection traffic to external IP 185.243.115.84](Step-by-Step-Guide/Part%202/images/part2-3.png)
 
 4. As a bonus, retrieve the desktop background of the Windows host.
 
-![Extracting the desktop background image from the capture](Part%202/images/part2-4.png)
-![The recovered desktop background of the infected host](Part%202/images/part2-5.png)
+![Extracting the desktop background image from the capture](Step-by-Step-Guide/Part%202/images/part2-4.png)
+![The recovered desktop background of the infected host](Step-by-Step-Guide/Part%202/images/part2-5.png)
+
+
+---
+© 2020 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
