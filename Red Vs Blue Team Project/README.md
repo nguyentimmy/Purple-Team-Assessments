@@ -1,6 +1,9 @@
 # 🎯 Red vs Blue — Purple-Team Assessment Walkthrough
 
-> A three-part purple-team lab that walks the full attack-then-detect loop. **Part 1** runs a Red Team exploit chain against a vulnerable Linux web server (nmap → hydra → WebDAV → PHP reverse shell → flag). **Part 2** switches to the Blue Team seat and hunts the same attack in Kibana using Packetbeat data. **Part 3** compiles the findings into a report with hardening recommendations.
+A three-part purple-team lab that walks the full attack-then-detect loop. 
+- **Part 1** runs a Red Team exploit chain against a vulnerable Linux web server (nmap → hydra → WebDAV → PHP reverse shell → flag).
+- **Part 2** switches to the Blue Team seat and hunts the same attack in Kibana using Packetbeat data.
+- **Part 3** compiles the findings into a report with hardening recommendations.
 
 **Stack:** Kali Linux · Nmap · Hydra · Metasploit / msfvenom · WebDAV · ELK Stack · Kibana · Packetbeat
 
