@@ -386,6 +386,3 @@ Inspect your traffic to answer the following questions:
 ![Extracting the desktop background image from the capture](Step-by-Step-Guide/Part%202/images/part2-4.png)
 ![The recovered desktop background of the infected host](Step-by-Step-Guide/Part%202/images/part2-5.png)
 
-
----
-© 2020 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
